@@ -3,22 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading Wave to Hello</title>
+  <title>Carbon</title>
   <style>
-    /* Styling for the loading wave */
+    /* General Styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Typing animation for the website name */
+    .website-name {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #8e44ad;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #8e44ad;
+      width: 10ch;
+      animation: typing 3s steps(10) infinite, blink 0.5s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 10ch; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Loading wave animation */
     .loading-wave {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
+      margin-top: 20px;
     }
 
     .loading-bar {
       width: 10px;
       height: 50px;
       margin: 0 5px;
-      background-color: #3498db;
+      background-color: #8e44ad;
       animation: wave 1.2s infinite ease-in-out;
     }
 
@@ -36,17 +69,21 @@
       }
     }
 
-    /* Hidden message initially */
+    /* Hidden hello message */
     .hello-message {
       display: none;
-      text-align: center;
-      font-size: 2rem;
+      font-size: 3rem;
       font-weight: bold;
-      color: #2c3e50;
+      color: #8e44ad;
+      opacity: 0;
+      transition: opacity 1s ease-in;
     }
   </style>
 </head>
 <body>
+  <!-- Typing website name -->
+  <div class="website-name">Carbon</div>
+
   <!-- Loading wave animation -->
   <div class="loading-wave">
     <div class="loading-bar"></div>
@@ -59,12 +96,13 @@
   <div class="hello-message">Hello</div>
 
   <script>
-    // JavaScript to display the message after 2 seconds
+    // JavaScript to handle transitions
     setTimeout(() => {
-      document.querySelector('.loading-wave').style.display = 'none'; // Hide loading wave
-      document.querySelector('.hello-message').style.display = 'block'; // Show hello message
-    }, 2000);
+      document.querySelector('.loading-wave').style.display = 'none'; // Hide the loading animation
+      const helloMessage = document.querySelector('.hello-message');
+      helloMessage.style.display = 'block'; // Show hello message
+      helloMessage.style.opacity = 1; // Trigger fade-in effect
+    }, 5000); // 5 seconds
   </script>
 </body>
 </html>
-
