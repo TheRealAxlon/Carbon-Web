@@ -18,93 +18,53 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
     }
 
-    /* Gradient animated background for the loading screen */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      background: linear-gradient(45deg, #8e44ad, #732d91, #3e1f6b);
-      background-size: 400% 400%;
-      animation: gradientAnimation 5s ease infinite;
-      transition: opacity 1s ease-in-out;
-    }
-
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Stylish Loading Text */
-    .loading-text {
-      font-size: 3rem;
-      font-weight: bold;
-      color: black; /* Text color set to black */
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(0, 0, 0, 0.6); /* Shadow effect */
-      animation: textFadeIn 1.5s ease-out infinite alternate;
-    }
-
-    @keyframes textFadeIn {
-      0% { opacity: 0.2; }
-      100% { opacity: 1; }
-    }
-
-    /* Unique Loading Spinner */
-    .loading-spinner {
-      border: 8px solid rgba(255, 255, 255, 0.2);
-      border-top: 8px solid #8e44ad;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px rgba(142, 68, 173, 0.5); }
-      100% { box-shadow: 0 0 20px rgba(142, 68, 173, 1); }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* Title Styling */
     .title {
-      font-size: 6rem;
+      font-size: 8rem; /* Make the text larger by default */
       font-weight: bold;
       margin-bottom: 50px;
-      display: none;
       text-shadow: 4px 4px 10px rgba(142, 68, 173, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    .title:hover {
-      transform: translateY(-10px);
-      color: #8e44ad;
+    /* Why Carbon Button */
+    .why-carbon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.2rem;
+      color: #fff;
+      background: rgba(142, 68, 173, 0.75);
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, opacity 0.3s;
+      opacity: 0.75;
+    }
+
+    .why-carbon:hover {
+      background: rgba(115, 45, 145, 0.85);
+      opacity: 1;
     }
 
     /* Main menu styling */
     .menu {
-      display: none;
+      display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
       position: absolute;
       bottom: 50px;
+      opacity: 0;
+      animation: fadeIn 3s ease-in-out forwards 1s;
     }
 
     .menu button {
@@ -126,95 +86,59 @@
       box-shadow: 0 10px 25px rgba(142, 68, 173, 0.7);
     }
 
+    /* Source Button Styling */
     .source {
-      font-size: 1.2rem;
-      color: grey;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
       cursor: pointer;
-      margin-top: -10px;
-    }
-
-    .source:hover {
-      text-decoration: underline;
-    }
-
-    .templates {
-      display: none;
-      margin-top: 20px;
+      padding: 10px 20px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      border-radius: 10px;
       text-align: center;
     }
 
-    /* Falling particles */
+    .source:hover {
+      transform: translateY(-10px); /* Moves the source up */
+      opacity: 0.5; /* Makes it more transparent */
+    }
+
+    /* Falling Snow Effect */
     .snowflake {
       position: absolute;
-      top: -10px;
-      background-color: white;
-      width: 5px;
-      height: 5px;
+      background-color: white; /* Change to white */
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       opacity: 0.8;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
-      from {
-        transform: translateY(-10px);
-      }
-      to {
-        transform: translateY(100vh);
-      }
-    }
-
-    /* Overlay Effect */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      animation: overlayAnimation 5s ease-in-out infinite;
-    }
-
-    @keyframes overlayAnimation {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.5; }
-      100% { opacity: 0.3; }
+      from { transform: translateY(0); }
+      to { transform: translateY(100vh); }
     }
   </style>
 </head>
 <body>
-  <!-- Overlay Effect -->
-  <div class="overlay"></div>
-
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loading-screen">
-    <div class="loading-text">Loading...</div>
-    <div class="loading-spinner"></div>
-  </div>
-
   <!-- Title -->
-  <div class="title" id="title">Carbon</div>
+  <div class="title">Carbon</div>
+  
+  <!-- Why Carbon? Button -->
+  <div class="why-carbon" onclick="alert('Carbon is designed for speed and efficiency!')">Why Carbon?</div>
   
   <!-- Main menu -->
-  <div class="menu" id="menu">
-    <button id="download">Download</button>
-    <div class="source" onclick="alert('Source Clicked')">Source</div>
+  <div class="menu">
+    <!-- Download button with direct download link -->
+    <a href="https://github.com/TheRealAxlon/Carbon-Client/releases/download/Carbon/Carbon.bat" download>
+      <button id="download">Download</button>
+    </a>
+    <!-- Source Button -->
+    <div class="source" onclick="window.open('https://github.com/TheRealAxlon/Carbon-Client', '_blank')">Source</div>
     <button id="create">Create</button>
   </div>
 
-  <!-- Templates section -->
-  <div class="templates" id="templates">
-    <h2>Templates</h2>
-    <p>Choose a template to get started.</p>
-  </div>
-
   <script>
-    // Show templates when 'Create' is clicked
-    document.getElementById('create').addEventListener('click', function() {
-      document.getElementById('templates').style.display = 'block';
-    });
-
-    // Generate falling particles
+    // Generate falling snowflakes (unchanged)
     function createSnowflakes() {
       const snowflake = document.createElement("div");
       snowflake.classList.add("snowflake");
@@ -231,17 +155,6 @@
     }
     
     setInterval(createSnowflakes, 100);
-
-    // Loading screen logic
-    setTimeout(() => {
-      // Fade out loading screen without affecting text visibility
-      document.getElementById('loading-screen').style.opacity = 0;
-      setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('title').style.display = 'block';
-        document.getElementById('menu').style.display = 'flex';
-      }, 1000);
-    }, 3000); // 3 seconds loading time
   </script>
 </body>
 </html>
