@@ -9,100 +9,239 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #000;
+      color: #fff;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
 
-    /* Typing animation for the website name */
-    .website-name {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #8e44ad;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #8e44ad;
-      width: 10ch;
-      animation: typing 3s steps(10) infinite, blink 0.5s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 10ch; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    /* Loading wave animation */
-    .loading-wave {
+    /* Gradient animated background for the loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 20px;
+      flex-direction: column;
+      z-index: 1000;
+      background: linear-gradient(45deg, #8e44ad, #732d91, #3e1f6b);
+      background-size: 400% 400%;
+      animation: gradientAnimation 5s ease infinite;
+      transition: opacity 1s ease-in-out;
     }
 
-    .loading-bar {
-      width: 10px;
-      height: 50px;
-      margin: 0 5px;
-      background-color: #8e44ad;
-      animation: wave 1.2s infinite ease-in-out;
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .loading-bar:nth-child(1) { animation-delay: 0s; }
-    .loading-bar:nth-child(2) { animation-delay: 0.2s; }
-    .loading-bar:nth-child(3) { animation-delay: 0.4s; }
-    .loading-bar:nth-child(4) { animation-delay: 0.6s; }
-
-    @keyframes wave {
-      0%, 100% {
-        transform: scaleY(1);
-      }
-      50% {
-        transform: scaleY(2);
-      }
-    }
-
-    /* Hidden hello message */
-    .hello-message {
-      display: none;
+    /* Stylish Loading Text */
+    .loading-text {
       font-size: 3rem;
       font-weight: bold;
+      color: black; /* Text color set to black */
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(0, 0, 0, 0.6); /* Shadow effect */
+      animation: textFadeIn 1.5s ease-out infinite alternate;
+    }
+
+    @keyframes textFadeIn {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    /* Unique Loading Spinner */
+    .loading-spinner {
+      border: 8px solid rgba(255, 255, 255, 0.2);
+      border-top: 8px solid #8e44ad;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px rgba(142, 68, 173, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(142, 68, 173, 1); }
+    }
+
+    /* Title Styling */
+    .title {
+      font-size: 6rem;
+      font-weight: bold;
+      margin-bottom: 50px;
+      display: none;
+      text-shadow: 4px 4px 10px rgba(142, 68, 173, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .title:hover {
+      transform: translateY(-10px);
       color: #8e44ad;
-      opacity: 0;
-      transition: opacity 1s ease-in;
+    }
+
+    /* Main menu styling */
+    .menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: absolute;
+      bottom: 50px;
+    }
+
+    .menu button {
+      background-color: #8e44ad;
+      color: white;
+      border: none;
+      padding: 20px 50px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 8px 20px rgba(142, 68, 173, 0.5);
+    }
+
+    .menu button:hover {
+      background-color: #732d91;
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(142, 68, 173, 0.7);
+    }
+
+    .source {
+      font-size: 1.2rem;
+      color: grey;
+      cursor: pointer;
+      margin-top: -10px;
+    }
+
+    .source:hover {
+      text-decoration: underline;
+    }
+
+    .templates {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Falling particles */
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      background-color: white;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-10px);
+      }
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    /* Overlay Effect */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      animation: overlayAnimation 5s ease-in-out infinite;
+    }
+
+    @keyframes overlayAnimation {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+      100% { opacity: 0.3; }
     }
   </style>
 </head>
 <body>
-  <!-- Typing website name -->
-  <div class="website-name">Carbon</div>
+  <!-- Overlay Effect -->
+  <div class="overlay"></div>
 
-  <!-- Loading wave animation -->
-  <div class="loading-wave">
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-text">Loading...</div>
+    <div class="loading-spinner"></div>
   </div>
 
-  <!-- Hello message -->
-  <div class="hello-message">Hello</div>
+  <!-- Title -->
+  <div class="title" id="title">Carbon</div>
+  
+  <!-- Main menu -->
+  <div class="menu" id="menu">
+    <button id="download">Download</button>
+    <div class="source" onclick="alert('Source Clicked')">Source</div>
+    <button id="create">Create</button>
+  </div>
+
+  <!-- Templates section -->
+  <div class="templates" id="templates">
+    <h2>Templates</h2>
+    <p>Choose a template to get started.</p>
+  </div>
 
   <script>
-    // JavaScript to handle transitions
+    // Show templates when 'Create' is clicked
+    document.getElementById('create').addEventListener('click', function() {
+      document.getElementById('templates').style.display = 'block';
+    });
+
+    // Generate falling particles
+    function createSnowflakes() {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      document.body.appendChild(snowflake);
+      
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      snowflake.style.opacity = Math.random();
+      snowflake.style.width = snowflake.style.height = Math.random() * 6 + "px";
+      
+      setTimeout(() => {
+        snowflake.remove();
+      }, 5000);
+    }
+    
+    setInterval(createSnowflakes, 100);
+
+    // Loading screen logic
     setTimeout(() => {
-      document.querySelector('.loading-wave').style.display = 'none'; // Hide the loading animation
-      const helloMessage = document.querySelector('.hello-message');
-      helloMessage.style.display = 'block'; // Show hello message
-      helloMessage.style.opacity = 1; // Trigger fade-in effect
-    }, 5000); // 5 seconds
+      // Fade out loading screen without affecting text visibility
+      document.getElementById('loading-screen').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('title').style.display = 'block';
+        document.getElementById('menu').style.display = 'flex';
+      }, 1000);
+    }, 3000); // 3 seconds loading time
   </script>
 </body>
 </html>
